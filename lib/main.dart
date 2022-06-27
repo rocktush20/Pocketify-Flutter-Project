@@ -1,6 +1,9 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_escapes, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, non_constant_identifier_names, avoid_unnecessary_containers
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, non_constant_identifier_names, sort_child_properties_last, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, override_on_non_overriding_member, annotate_overrides, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'page_one.dart';
+import 'page_two.dart';
+import 'page_three.dart';
 
 void main() {
   runApp(
@@ -17,235 +20,245 @@ class ProfileBox extends StatefulWidget {
 }
 
 class _ProfileBoxState extends State<ProfileBox> {
-  ScrollController controller = ScrollController();
-  bool closeTopContainer = false;
-  List<Widget> MyList = [];
-  void createList() {
-    for (int i = 0; i < 20; i++) {
-      MyList.add(getCard());
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    createList();
-    controller.addListener(() {
-      setState(() {
-        closeTopContainer = controller.offset > 50;
-      });
-    });
-  }
+  int index = 0;
+  final Screens = [MyHome(), Mello(), shello()];
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.4;
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 500),
-              opacity: !closeTopContainer ? 0 : 1,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: !closeTopContainer ? 0 : size.height * .08,
-                alignment: Alignment.topCenter,
-                width: size.width,
-                child: Container(
-                  color: Color.fromRGBO(96, 9, 100, 1),
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "2022-01",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Expense : 1000",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Income : 4000",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                'Side menu',
+                style: TextStyle(color: Colors.white, fontSize: 25),
               ),
+              decoration: BoxDecoration(
+                  color: Colors.green,
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/cover.jpg'))),
             ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: closeTopContainer ? 0 : categoryHeight,
-              //alignment: Alignment.topCenter,
-              width: size.width,
-              child: Container(
-                color: Color.fromRGBO(96, 9, 100, 1),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "2022-02 Balance",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                "3000",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 40),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                "Expense : 1000",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                "Income : 4000",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20)),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Text(
-                                "Budget Setting",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                color: Color.fromRGBO(238, 238, 238, 1.0),
-                                height: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            ListTile(
+              leading: Icon(Icons.input),
+              title: Text('Welcome'),
+              onTap: () => {},
             ),
-            Expanded(
-              child: ListView.builder(
-                  controller: controller,
-                  itemCount: MyList.length,
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return MyList[index];
-                  }),
+            ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('Profile'),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            ListTile(
+              leading: Icon(Icons.border_color),
+              title: Text('Feedback'),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Logout'),
+              onTap: () => {Navigator.of(context).pop()},
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.menu,
+      body: Screens[index],
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(96, 9, 100, 1),
+        child: Icon(Icons.add, color: Colors.white, size: 40),
+        //child widget inside this button
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              ));
+        },
+      ),
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          indicatorColor: Color.fromARGB(255, 214, 136, 228),
+        ),
+        child: NavigationBar(
+          height: 60,
+          selectedIndex: index,
+          onDestinationSelected: (index) => setState(() => this.index = index),
+          animationDuration: Duration(seconds: 2),
+          destinations: [
+            NavigationDestination(
+                icon: Icon(Icons.home),
+                selectedIcon: Icon(
+                  Icons.home_filled,
+                  color: Color.fromRGBO(96, 9, 100, 1),
+                ),
+                label: 'Home'),
+            NavigationDestination(
+                icon: Icon(Icons.menu),
+                selectedIcon: Icon(
+                  Icons.menu,
+                  color: Color.fromRGBO(96, 9, 100, 1),
+                ),
+                label: ''),
+            NavigationDestination(
+                icon: Icon(Icons.camera),
+                selectedIcon: Icon(
+                  Icons.camera,
+                  color: Color.fromRGBO(96, 9, 100, 1),
+                ),
+                label: ''),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  String email = "gmail@email.com";
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[350],
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(96, 9, 100, 1),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_outlined),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        title: const Text('Detail'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                //code to execute when this button is pressed
+              }),
+
+          IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                //code to execute when this button is pressed
+              }),
+
+          //more widgets to place here
+        ],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Card(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(
+                          'assets/food.png'), // no matter how big it is, it won't overflow
+                    ),
+                    title: const Text(
+                      'Food',
+                      textScaleFactor: 1,
+                    ),
+                    trailing: const Text("500.0"),
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.category, color: Colors.black),
+                    title: const Text(
+                      'Category',
+                      textScaleFactor: 1,
+                    ),
+                    trailing: const Text("Expenses"),
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.calendar_month_rounded,
+                        color: Colors.black),
+                    title: const Text(
+                      'Date',
+                      textScaleFactor: 1,
+                    ),
+                    trailing: const Text("Jan 30,2022"),
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  ),
+                  ListTile(
+                    leading:
+                        const Icon(Icons.edit_outlined, color: Colors.black),
+                    title: const Text(
+                      'Remark',
+                      textScaleFactor: 1,
+                    ),
+                    trailing: const Text("hello"),
+                  ),
+                ],
+              ),
             ),
-            label: '',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
-            label: '',
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MyWidget()));
+            },
+            icon: Padding(
+                padding: EdgeInsets.only(left: 10),
+                child:
+                    Icon(Icons.edit_outlined)), //icon data for elevated button
+            label: Padding(
+              padding: EdgeInsets.only(right: 30, top: 10, bottom: 10),
+              child: Text("EDIT"),
+            ), //label text
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromRGBO(
+                  96, 9, 100, 1), //elevated btton background color
+            ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget getCard() {
-    return Container(
-      color: Colors.grey[300],
-      child: Column(
-        children: [
-          Card(
-              color: Colors.grey[300],
-              child: ListTile(
-                  title: Text("Jan 30,2022"),
-                  trailing: Text("Expense: 1500.0"))),
-          Card(
-              child: ListTile(
-                  title: Text("Food"),
-                  leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/food.png')),
-                  trailing: Text("500.0"))),
-          Card(
-              child: ListTile(
-                  title: Text("Entertainment"),
-                  leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/entertainment.png')),
-                  trailing: Text("500.0"))),
-          Card(
-              child: ListTile(
-                  title: Text("Health"),
-                  leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/health.png')),
-                  trailing: Text("500.0"))),
-        ],
-      ),
-    );
+class MyWidget extends StatefulWidget {
+  const MyWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
   }
 }
