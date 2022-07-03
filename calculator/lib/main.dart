@@ -62,7 +62,17 @@ class _CalculatorState extends State<Calculator> {
   }
 
   void Confirm() {
-    String eq = CurrentTotal;
+    String equation = CurrentTotal;
+    equation = equation.replaceAll('x', '*');
+    Parser p = Parser();
+    Expression exp = p.parse(equation); 
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL,cm);
+    setState(() {
+       Total = eval;
+    
+    });
+   
     
   }
 
