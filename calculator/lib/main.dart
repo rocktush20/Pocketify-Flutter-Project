@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 //import 'package:math_expressions.dart';
 
 void main() {
@@ -56,11 +57,13 @@ class _CalculatorState extends State<Calculator> {
   double number2 = 0;
   String operand = " ";
   ButtonPressed(String value) {
+    
     setState(() {
       CurrentTotal += value;
     });
+    
   }
-
+ //Showing the ultimate result
   void Confirm() {
     String equation = CurrentTotal;
     equation = equation.replaceAll('x', '*');
@@ -73,7 +76,6 @@ class _CalculatorState extends State<Calculator> {
     
     });
    
-    
   }
 
   @override
