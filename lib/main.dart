@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'page_one.dart';
 import 'page_two.dart';
 import 'page_three.dart';
+import 'new_page.dart';
 
 void main() {
   runApp(
@@ -228,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ElevatedButton.icon(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MyWidget()));
+                  context, MaterialPageRoute(builder: (context) => new_page()));
             },
             icon: Padding(
                 padding: EdgeInsets.only(left: 10),
